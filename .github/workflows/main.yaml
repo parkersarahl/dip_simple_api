@@ -46,13 +46,11 @@ jobs:
             run: echo ${{ steps.login-aws-ecr.outputs.registry }}
           - name: Deploy to EC2
             run: | 
-              aws ssm send-command \ 
-              --document-name "AWS-RunShellScript" \ 
-              --targets "Key=instanceids,Values=i-08e4d6d7fb7254d2e,i-0d1f4c573bbb563f0" \ 
-              --comment "Pull Docker image and run it" \
-              --parameters commands='[
-                "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin ${{ steps.login-aws-ecr.outputs.registry }}",
-              ]' \
+              aws ssm send-command \
+              --document-name "AWS-RunShellScript" \
+              --parameters 'commands=["echo HelloWorld"]' \
+              --targets "Key=instanceids,Values=i-08e4d6d7fb7254d2e" \
+              --comment "echo HelloWorld"
 
     
 
