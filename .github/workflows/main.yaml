@@ -53,14 +53,14 @@ jobs:
               "docker stop api || true",
               "docker pull ${{ steps.login-aws-ecr.outputs.registry }}/${{secrets.AWS_ECR_REPO}}:latest",
               "docker run --rm -d -p 3000:3000 --name api ${{steps.login-aws-ecr.outputs.registry}}/${{secrets.AWS_ECR_REPO}}:latest"]' --query "Command.CommandId" --output text \
-            --targets "Key=instanceids,Values=i-0251d58bf125e2cfc,i-0d4d47a543c89b489" \
+            --targets "Key=instanceids,Values=${{ secrets.INSTANCE_ID_1}},i-0d4d47a543c89b489${{ secrets.INSTANCE_ID_2}}" \
             --comment "Pull Docker Image and run it")
 
               echo "$command_id"
 
             aws ssm wait command-executed \
             --command-id $command_id \
-            --instance-id i-0251d58bf125e2cfc || true \
+            --instance-id ${{ secrets.INSTANCE_ID_1}} || true \
 
             status=$(aws ssm list-commands --command-id $command_id --query "Commands[0].StatusDetails" --output text)
 
