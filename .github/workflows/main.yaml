@@ -51,8 +51,8 @@ jobs:
               --parameters commands='[
                 "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin ${{ steps.login-aws-ecr.outputs.registry }}",
                 "docker pull ${{ steps.login-aws-ecr.outputs.registry }}/${{secrets.AWS_ECR_REPO}}:latest",
-                "docker run --rm -d -p 3000:3000 --name api ${{steps.login-aws-ecr.outputs.registry}}/${{secrets.AWS_ECR_REPO}}:latest"
-              ]' --query "Command.CommandId" --output text \
+                "docker run --rm -d -p 3000:3000 --name api ${{steps.login-aws-ecr.outputs.registry}}/${{secrets.AWS_ECR_REPO}}:latest"]' 
+              --query "Command.CommandId" --output text \
               --targets "Key=instanceids,Values=i-08e4d6d7fb7254d2e,i-0d1f4c573bbb563f0" \
               --comment "Pull Docker Image and run it")
 
