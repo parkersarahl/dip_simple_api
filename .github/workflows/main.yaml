@@ -50,6 +50,7 @@ jobs:
             --document-name "AWS-RunShellScript" \
             --parameters commands='[
               "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin ${{ steps.login-aws-ecr.outputs.registry }}",
+              "docker stop api || true",
               "docker pull ${{ steps.login-aws-ecr.outputs.registry }}/${{secrets.AWS_ECR_REPO}}:latest",
               "docker run --rm -d -p 3000:3000 --name api ${{steps.login-aws-ecr.outputs.registry}}/${{secrets.AWS_ECR_REPO}}:latest"]' --query "Command.CommandId" --output text \
             --targets "Key=instanceids,Values=i-0251d58bf125e2cfc,i-0d4d47a543c89b489" \
