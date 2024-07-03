@@ -42,9 +42,7 @@ jobs:
         - name: Login to Amazon ECR
           id: login-aws-ecr
           uses: aws-actions/amazon-ecr-login@v2
-        - name: Echo
-          run: echo ${{ steps.login-aws-ecr.outputs.registry }}
-        - name: Deploy to EC2
+       
         - name: Pull and Run Docker Image from ECR  
           run: | 
             command_id=$(aws ssm send-command \
@@ -60,12 +58,13 @@ jobs:
 
               
         - name: Wait for Docker Commands to Complete
+          run: |
             echo ${{ env.command_id }}
             aws ssm wait command-executed \
             --command-id ${{ env.command_id }} \
             --instance-id ${{ secrets.INSTANCE_ID_1}} || true \
         - name: Check Command Status
-          run: 
+          run: |
             status=$(aws ssm list-commands --command-id ${{ env.command_id }} --query "Commands[0].StatusDetails" --output text)
 
             echo "$status"
