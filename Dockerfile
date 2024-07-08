@@ -1,5 +1,5 @@
 FROM --platform=linux/amd64 node:18-alpine
-WORKDIR /api
+WORKDIR /api/dist
 COPY package*.json ./
 RUN npm install -g
 RUN npm ci
