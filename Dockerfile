@@ -1,7 +1,7 @@
 FROM --platform=linux/amd64 node:18-alpine
-WORKDIR /api/app
+WORKDIR /app
 COPY package*.json ./
-#RUN chown -R app /app
+RUN PWD
 RUN npm ci
 COPY . .
 RUN npm run build
