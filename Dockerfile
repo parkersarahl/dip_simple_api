@@ -1,7 +1,6 @@
 FROM --platform=linux/amd64 node:18-alpine
-WORKDIR /app
+WORKDIR /api
 COPY package*.json ./
-RUN PWD
 RUN npm ci
 COPY . .
 RUN npm run build
