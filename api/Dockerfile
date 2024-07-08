@@ -1,8 +1,23 @@
-FROM --platform=linux/amd64 node:18-alpine
+# Base image
+FROM node:18
+
+# Create app directory
 WORKDIR /app
+
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
-RUN npm ci
+
+# Install app dependencies
+RUN npm install
+
+# Bundle app source
 COPY . .
+
+# Creates a "dist" folder with the production build
 RUN npm run build
+
+# Expose the port on which the app will run
 EXPOSE 3000
-CMD npm rum migration:run && node dist/main.js
+
+# Start the server using the production build
+CMD npm run migration:run && npm run start:prod
