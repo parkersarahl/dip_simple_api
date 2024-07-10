@@ -29,7 +29,7 @@ const Todo = ({ todo, updateTodos }: Props) => {
   const editTodo = (key: string, value: string | boolean) => {
     const updatedTodo = { ...todo, [key]: value };
     axios
-      .put(`http://${hosts}:3000/api/todos/${todo.id}`, {
+      .put(`http://${hosts}/api/todos/${todo.id}`, {
         todo: updatedTodo,
       })
       .then((response) => {

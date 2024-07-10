@@ -24,7 +24,7 @@ function App() {
 
   useEffect(() => {
     console.log("HOST", hosts);
-    axios.get(`http://${hosts}:3000/api/todos`).then((response) => {
+    axios.get(`http://${hosts}/api/todos`).then((response) => {
       setTodos(response.data);
     });
   }, []);
@@ -43,7 +43,7 @@ function App() {
   };
 
   const addTodo = () => {
-    axios.post(`http://${hosts}:3000/api/todos`, newTodo).then((response) => {
+    axios.post(`http://${hosts}/api/todos`, newTodo).then((response) => {
       setTodos(response.data);
     });
   };
