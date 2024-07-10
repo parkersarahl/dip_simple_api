@@ -28,7 +28,6 @@ jobs:
             docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./api
             docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-jobs:
   build-frontend:
     name: Build Frontend Docker Image
     runs-on: ubuntu-latest  
